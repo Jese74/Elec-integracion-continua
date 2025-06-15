@@ -1,0 +1,20 @@
+name: Notificación a ntfy.sh
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  notificar:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Enviar notificación a ntfy.sh
+        run: |
+          curl -H "Title: Push a main" \
+               -d "El usuario ${{ github.actor }} hizo push al commit ${{ github.sha }}. Ver: https://github.com/${{ github.repository }}/commit/${{ github.sha }}" \
+               https://ntfy.sh/Elec-integracion-continua
